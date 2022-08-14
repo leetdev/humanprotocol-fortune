@@ -34,14 +34,17 @@ app.post('/job/results', async function(req, res) {
 
     const filteredFortunes = filterFortunes(fortunes);
     const evenWorkerReward = calculateRewardForWorker(balance, filteredFortunes.length);
-    const resultsUrl = await uploadResults(fortunes.map(({fortune}) => fortune), escrowAddress); 
+    const resultsUrl = await uploadResults(fortunes.map(({fortune}) => fortune), escrowAddress);
     // TODO calculate the URL hash(?)
     const resultHash = resultsUrl;
     const workerAddresses = filteredFortunes.map(fortune => fortune.worker).map(web3.utils.toChecksumAddress);
     const rewards = workerAddresses.map(() => evenWorkerReward.toString());
     const bulkTransactionId = 1;
 
-    await Escrow.methods.bulkPayOut(workerAddresses, rewards, resultsUrl, resultHash, 1).send({from: account.address, gas: 5000000});
+    const bulkPayOut = Escrow.methods.bulkPayOut(workerAddresses, rewards, resultsUrl, resultHash, 1)
+    const gas = await bulkPayOut.estimateGas({ from: account.address })
+    const gasPrice = await web3.eth.getGasPrice();
+    await bulkPayOut.send({from: account.address, gas, gasPrice});
 
     res.status(200).send({ message: 'Escrow has been completed' })
   } catch(err) {

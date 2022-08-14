@@ -1,6 +1,6 @@
 {
-  "name": "reputation-oracle",
-  "version": "1.0.0",
+  "name": "@humanprotocol-fortune/reputation-oracle",
+  "version": "0.1.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {

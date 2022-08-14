@@ -1,0 +1,19 @@
+{
+  "name": "@humanprotocol-fortune/monorepo",
+  "version": "0.1.0",
+  "repository": "https://github.com/leetdev/humanprotocol-fortune.git",
+  "author": "Rene Aavik <renx81@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+
+  },
+  "workspaces": {
+    "packages": [
+      "exchange",
+      "launcher",
+      "recording-oracle",
+      "reputation-oracle"
+    ]
+  }
+}

@@ -130,3 +130,9 @@ dmypy.json
 .pyre/
 
 reputation-oracle/data
+
+# IntelliJ
+.idea
+
+# Docker
+docker-compose.yml
